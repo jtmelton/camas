@@ -1,0 +1,121 @@
+
+    ],
+    "ignored-paths": [
+        {
+            "type": "regex",
+            "content": "\\.min\\.js$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.(less|s?css|html|lock|pbxproj)$"
+        },
+        {
+            "type": "simple",
+            "content": "node_modules/"
+        },
+        {
+            "type": "regex",
+            "content": "package-lock\\.json$"
+        },
+        {
+            "type": "regex",
+            "content": "bower\\.json$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.pdf$"
+        },
+        {
+            "type": "regex",
+            "content": "npm-debug\\.log"
+        },
+        {
+            "type": "simple",
+            "content": "/generated/"
+        },
+        {
+            "type": "simple",
+            "content": "/target/classes/"
+        },
+        {
+            "type": "simple",
+            "content": "/target/test-classes/"
+        },
+        {
+            "type": "simple",
+            "content": "/src/test/"
+        },
+        {
+            "type": "simple",
+            "content": "/.git/"
+        },
+        {
+            "type": "regex",
+            "content": "\\.jar$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.class$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.dat$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.jpg$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.jpeg$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.png$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.gif$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.svg$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.mp3$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.mp4$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.webm$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.ttf$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.woff$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.eot$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.css$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.DS_Store$"
+        },
+        {
+            "type": "regex",
+            "content": "\\.vendor\\.bundle\\.js$"
+        }
+    ]
+}
