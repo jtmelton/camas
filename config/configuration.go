@@ -3,6 +3,7 @@ package config
 import (
 	"bufio"
 	"encoding/json"
+
 	"io/ioutil"
 	"log"
 	"os"
@@ -45,19 +46,22 @@ func ParseConfig(configFilePath string) Config {
 	// Read contents of JSON file
 	f, err := os.Open(configFilePath)
 	if err != nil {
-		panic(err)
+		log.Fatalf("Unable to open file %s: %s", configFilePath, err)
 	}
 	defer f.Close()
 
 	reader := bufio.NewReader(f)
 	content, err := ioutil.ReadAll(reader)
 	if err != nil {
-		log.Printf("Unable to read file %s: %s", configFilePath, err)
+		log.Fatalf("Unable to read file %s: %s", configFilePath, err)
 	}
 
 	// Parse JSON file and compile regex rules
 	var config Config
-	json.Unmarshal([]byte(content), &config)
+	err = json.Unmarshal(content, &config)
+	if err != nil {
+		log.Fatalf("Unable to unmarshal configuration %s: %s", configFilePath, err)
+	}
 
 	configUpdatedRules := config
 	configUpdatedRules.Rules = nil // empty out rules so we can recreate

@@ -60,10 +60,6 @@ func worker(paths []string, _options domain.Options, config config.Config, jobs 
 	for j := range jobs {
 
 		path := paths[j-1]
-		file, err := os.Open(path)
-		if err != nil {
-			log.Fatal(err)
-		}
 
 		filename := filepath.Base(path)
 		extension := filepath.Ext(path)
@@ -83,6 +79,11 @@ func worker(paths []string, _options domain.Options, config config.Config, jobs 
 			} else if "path" == rule.AnalysisLayer {
 				addFindingIfMatched(path, rule, path, 1, findings)
 			}
+		}
+
+		file, err := os.Open(path)
+		if err != nil {
+			log.Fatalf("Unable to open file %s: %s", path, err)
 		}
 
 		scanner := bufio.NewScanner(file)
@@ -122,7 +123,7 @@ func Walk(rootPath string, _options domain.Options, config config.Config) []doma
 	var paths []string
 	filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			log.Fatalf(err.Error())
+			log.Fatalf("Failure walking %s: %s", rootPath, err)
 		}
 
 		if info.IsDir() {
@@ -135,7 +136,10 @@ func Walk(rootPath string, _options domain.Options, config config.Config) []doma
 					return nil
 				}
 			} else if ignoredPath.Type == "regex" {
-				var regexTest, _ = regexp.Compile(ignoredPath.Content)
+				var regexTest, err = regexp.Compile(ignoredPath.Content)
+				if err != nil {
+					log.Fatalf("Invalid regex rule in ignored path! Path: %s, Error: %s", ignoredPath.Content, err)
+				}
 
 				if regexTest.MatchString(path) {
 					return nil

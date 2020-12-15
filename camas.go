@@ -62,7 +62,7 @@ func main() {
 	if *cpuProfile == true {
 		f, err := os.Create("camas.prof")
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("Could not construct .prof file for profiling: %v", err)
 		}
 		pprof.StartCPUProfile(f)
 		defer pprof.StopCPUProfile()
@@ -77,52 +77,18 @@ func main() {
 		NumWorkers:     *numWorkers,
 	}
 
-	config := config.ParseConfig(_options.ConfigFile)
+	configuration := config.ParseConfig(_options.ConfigFile)
 
-	findings := processing.Walk(*inputDirectory, _options, config)
+	findings := processing.Walk(*inputDirectory, _options, configuration)
 
 	reporting.WriteReport(findings, _options)
 
 	/*
 		TODO:
-		- DONE docckerize (with from scratch)
-		- DONE pull in rules from all the different projects
-				https://github.com/awslabs/git-secrets/blob/master/git-secrets#L233
-				* BSD3 https://gitlab.com/gitlab-com/gl-security/security-operations/gl-redteam/token-hunter/-/blob/master/regexes.json
-				* Apache 2.0 https://github.com/newrelic/rusty-hog/blob/master/src/default_rules.json
-				? MIT https://github.com/eth0izzle/shhgit/blob/master/config.yaml
-				X GPL3 https://github.com/BishopFox/GitGot/blob/master/checks/default.list
-				* MIT https://github.com/UKHomeOffice/repo-security-scanner/blob/master/rules/gitrob.json
-				? MIT https://github.com/michenriksen/gitrob/blob/master/core/signatures.go
-				? MIT https://github.com/zricethezav/gitleaks/blob/master/examples/leaky-repo.toml
-					https://github.com/pelletier/go-toml
-					$ curl https://raw.githubusercontent.com/zricethezav/gitleaks/master/examples/leaky-repo.toml > leaky-repo.toml
-					docker run -v $PWD:/workdir pelletier/go-toml tomljson /workdir/example.toml
-
-				https://github.com/nielsing/yar/blob/master/config/yarconfig.json
-				https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json
-		- DONE make NUM_WORKERS a parameter, maybe defaulted to # of processors
-		- DONE add noise level parameter (default might be "all" rules)
-		- DONE start using regex_matcher code
-		- DONE add excluded file types ... like https://github.com/securing/DumpsterDiver/blob/master/config.yaml#L4
-		- DONE add ability to look at file name, file ext, file path, and contents of file
-				"analysis-layer": "contents",
-				"analysis-layer": "extension",
-				"analysis-layer": "filename",
-				"analysis-layer": "path",
-		- DONE unit test everything
-		- DONE extract reporting into its' own file
-		- DONE use output file for reporting if parameter is present
-		- DONE default reporting is "summary", options are "summary", "full", and "json"
-
-
-		- use logging properly (use for everything except reporting)
-
-
 		- do a CI setup
 			https://github.com/jandelgado/golang-ci-template-github-actions/blob/master/.github/workflows/test.yml
 
-		- make sure to have test for "create user ... identified by $&*Q#*@#(*" in a sql file
+		- add a test for "create user ... identified by $&*Q#*@#(*" in a sql file
 	*/
 
 }
