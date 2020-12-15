@@ -25,7 +25,7 @@ type Rule struct {
 	Content       string `json:"content"`
 	Noise         int    `json:"noiseLevel"`
 	AnalysisLayer string `json:"analysisLayer"`
-	Source        int    `json:"source"`
+	Source        string `json:"source"`
 	Regex         *regexp.Regexp
 }
 
