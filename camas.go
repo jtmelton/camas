@@ -8,10 +8,10 @@ import (
 	"os"
 	"runtime/pprof"
 
-	"jtmelton/camas/config"
-	"jtmelton/camas/domain"
-	"jtmelton/camas/processing"
-	"jtmelton/camas/reporting"
+	"jtmelton.com/camas/config"
+	"jtmelton.com/camas/domain"
+	"jtmelton.com/camas/processing"
+	"jtmelton.com/camas/reporting"
 )
 
 var (

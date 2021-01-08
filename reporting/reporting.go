@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"jtmelton/camas/domain"
+	"jtmelton.com/camas/domain"
 )
 
 func check(e error) {
