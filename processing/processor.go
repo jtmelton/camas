@@ -9,8 +9,8 @@ import (
 	"runtime"
 	"strings"
 
-	"jtmelton.com/camas/config"
-	"jtmelton.com/camas/domain"
+	"github.com/jtmelton/camas/config"
+	"github.com/jtmelton/camas/domain"
 )
 
 func trimLeftChar(s string) string {

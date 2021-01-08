@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"testing"
 
-	"jtmelton.com/camas/config"
-	"jtmelton.com/camas/domain"
+	"github.com/jtmelton/camas/config"
+	"github.com/jtmelton/camas/domain"
 )
 
 func getRegex(regex string) *regexp.Regexp {
