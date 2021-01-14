@@ -111,7 +111,7 @@ func worker(paths []string, _options domain.Options, config config.Config, jobs 
 }
 
 // Walk walks the directory tree, forking a new worker goroutine for the number of workers
-func Walk(rootPath string, _options domain.Options, config config.Config) []domain.Finding {
+func Walk(rootPath string, _options domain.Options, config config.Config) domain.Findings {
 
 	// if num workers is not set as a cli config, default to # of cpus
 	var defaultNumWorkers = runtime.NumCPU()
@@ -182,5 +182,5 @@ func Walk(rootPath string, _options domain.Options, config config.Config) []doma
 		<-results
 	}
 
-	return findings
+	return domain.Findings{Findings: findings}
 }

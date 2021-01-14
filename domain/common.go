@@ -18,3 +18,8 @@ type Finding struct {
 	Content    string `json:"content"`
 	Noise      int    `json:"noise-level"`
 }
+
+// Findings struct represents an array of findings
+type Findings struct {
+	Findings []Finding `json:"findings"`
+}

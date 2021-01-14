@@ -19,25 +19,25 @@ func check(e error) {
 
 // Reporter is a marker interface
 type Reporter interface {
-	write(findings []domain.Finding, _options domain.Options)
+	write(findings domain.Findings, _options domain.Options)
 }
 
 // SimpleTextReporter is an interface impl for text reporting
 type SimpleTextReporter struct{}
 
-func (r SimpleTextReporter) write(findings []domain.Finding, _options domain.Options) {
+func (r SimpleTextReporter) write(findings domain.Findings, _options domain.Options) {
 
 	var results string
 	const NEWLINE = "\n"
 
-	if findings == nil || len(findings) == 0 {
+	if findings.Findings == nil || len(findings.Findings) == 0 {
 		results = "No Findings."
 	} else {
 		var sb strings.Builder
 
 		sb.WriteString("Findings:" + NEWLINE)
 
-		for _, finding := range findings {
+		for _, finding := range findings.Findings {
 			sb.WriteString("[" + finding.FilePath + ":" + strconv.Itoa(finding.LineNumber) + " (" + finding.RuleName + ") \"" + finding.Content + "\"]" + NEWLINE)
 		}
 
@@ -56,7 +56,7 @@ func (r SimpleTextReporter) write(findings []domain.Finding, _options domain.Opt
 // JSONReporter is an interface impl for text reporting
 type JSONReporter struct{}
 
-func (r JSONReporter) write(findings []domain.Finding, _options domain.Options) {
+func (r JSONReporter) write(findings domain.Findings, _options domain.Options) {
 
 	findingsJSON, jsonErr := json.Marshal(findings)
 	check(jsonErr)
@@ -64,7 +64,7 @@ func (r JSONReporter) write(findings []domain.Finding, _options domain.Options) 
 	var results []byte
 
 	// populate results with either empty json array or the actual findings
-	if findings == nil || len(findings) == 0 {
+	if findings.Findings == nil || len(findings.Findings) == 0 {
 		results = []byte("[]")
 	} else {
 		results = findingsJSON
@@ -81,7 +81,7 @@ func (r JSONReporter) write(findings []domain.Finding, _options domain.Options) 
 
 // WriteReport is the generic function called by an outside class to serialize the results.
 // It picks internally the right format based on the options passed in
-func WriteReport(findings []domain.Finding, _options domain.Options) {
+func WriteReport(findings domain.Findings, _options domain.Options) {
 	var reporter Reporter
 
 	if _options.OutputFormat == "" || _options.OutputFormat == "txt" {
