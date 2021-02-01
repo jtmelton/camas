@@ -65,7 +65,7 @@ func (r JSONReporter) write(findings domain.Findings, _options domain.Options) {
 
 	// populate results with either empty json array or the actual findings
 	if findings.Findings == nil || len(findings.Findings) == 0 {
-		results = []byte("[]")
+		results = []byte("{ \"findings\": []}")
 	} else {
 		results = findingsJSON
 	}
