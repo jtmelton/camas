@@ -53,7 +53,6 @@ func addFindingIfMatched(content string, rule config.Rule, path string, lineNum 
 	if match {
 		findings <- finding
 	}
-	// fmt.Println(rule)
 }
 
 func worker(paths []string, _options domain.Options, config config.Config, jobs <-chan int, results chan<- int, findings chan domain.Finding) {
