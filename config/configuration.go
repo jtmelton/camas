@@ -67,6 +67,7 @@ func ParseConfig(configFilePath string) Config {
 	configUpdatedRules.Rules = nil // empty out rules so we can recreate
 	for _, rule := range config.Rules {
 		if rule.Type != "regex" {
+			configUpdatedRules.Rules = append(configUpdatedRules.Rules, rule)
 			continue
 		}
 
